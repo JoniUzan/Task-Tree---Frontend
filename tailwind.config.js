@@ -20,6 +20,8 @@ module.exports = {
       colors: {
         "blue-text": "#061E2B",
         "mongo-light-green": "#70EE67",
+        "mongo-dark-green": "#2B684B",
+        "mongo-light-blue": "#E3FCF7",
 
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

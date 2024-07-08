@@ -1,11 +1,11 @@
-import LogoLightGreen from "@/components/logo/LogoLightGreen";
+import Logo from "@/components/logo/Logo";
 import React from "react";
 import { Outlet } from "react-router-dom";
 
 function AuthLayout() {
   return (
     <div>
-      <LogoLightGreen />
+      <Logo color={"lightGreen"} />
       <Outlet />
     </div>
   );

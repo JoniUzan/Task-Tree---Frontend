@@ -23,7 +23,7 @@ function LoginPage() {
   return (
     <div className="mt-24">
       <div className="mx-8 font-sofia-sans ">
-        <h2 className="text-3xl">Login</h2>
+        <h2 className="text-3xl text-blue-text">Login</h2>
         <div className="flex flex-col gap-6 ">
           <div>
             <Label className="text-blue-text" htmlFor="username">
@@ -37,12 +37,7 @@ function LoginPage() {
           </div>
         </div>
         <div className="space-y-4 mt-4">
-          <Button
-            onClick={handleLogInButton}
-            className="bg-mongo-light-green text-blue-text "
-          >
-            Login
-          </Button>
+          <Button onClick={handleLogInButton}>Login</Button>
           <div>
             Don't have an account?
             <div className="text-sky-600 inline-block mx-2">
