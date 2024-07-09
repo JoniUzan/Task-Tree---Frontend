@@ -92,7 +92,7 @@ function EditTask({
                 variant="ghost"
                 size="icon"
               >
-                <Pencil />
+                <Pencil strokeWidth={1} />
               </Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="flex flex-col justify-start">

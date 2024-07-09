@@ -21,7 +21,7 @@ function LoginPage() {
     await login(logInData);
   }
   return (
-    <div className="mt-24">
+    <div className="mt-24 md:w-1/2 mx-auto sm:w-1/2 lg:w-1/3">
       <div className="mx-8 font-sofia-sans ">
         <h2 className="text-3xl text-blue-text">Login</h2>
         <div className="flex flex-col gap-6 ">

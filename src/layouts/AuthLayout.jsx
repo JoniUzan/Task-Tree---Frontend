@@ -1,11 +1,13 @@
 import Logo from "@/components/logo/Logo";
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 function AuthLayout() {
   return (
     <div>
-      <Logo color={"lightGreen"} />
+      <Link to={"/"}>
+        <Logo color={"lightGreen"} />
+      </Link>
       <Outlet />
     </div>
   );

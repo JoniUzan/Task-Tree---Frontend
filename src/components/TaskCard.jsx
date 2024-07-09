@@ -27,6 +27,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import EditTask from "./EditTask";
 import Todos from "./Todos";
+import { useToast } from "./ui/use-toast";
 
 const TaskCard = ({
   setTask,
@@ -36,16 +37,33 @@ const TaskCard = ({
   editTaskMode,
   setEditTaskMode,
   handleTaskChange,
-  handleUpdateButton
+  handleUpdateButton,
 }) => {
   const navigate = useNavigate();
-
+  const { toast } = useToast();
 
   async function handlePinned() {
     try {
       const response = await api.patch(`/tasks/${task._id}`, {
         isPinned: !task.isPinned,
       });
+      if (!task.isPinned) {
+        toast({
+          title: "pined",
+          description: "Your task was pined",
+          style: {
+            backgroundColor: "lightgreen",
+          },
+        });
+      } else {
+        toast({
+          title: "unpined",
+          description: "Your task was unpined",
+          style: {
+            backgroundColor: "lightgreen",
+          },
+        });
+      }
       setTask(response.data);
     } catch (error) {
       console.error("unsuccessful to handlePinned", error);
@@ -56,12 +74,16 @@ const TaskCard = ({
     try {
       const response = await api.delete(`/tasks/${task._id}`);
       console.log("Task deleted");
+      navigate("/task");
+      toast({
+        title: "Deleted",
+        description: "Your task was deleted",
+        variant: "destructive",
+      });
     } catch (error) {
       console.error("unsuccessful to handleDeleteTask", error);
     }
   }
-
-
 
   return editTaskMode ? (
     <EditTask
@@ -98,7 +120,7 @@ const TaskCard = ({
               variant="ghost"
               size="icon"
             >
-              <Pencil />
+              <Pencil strokeWidth={1} />
             </Button>
           )}
           <AlertDialog>

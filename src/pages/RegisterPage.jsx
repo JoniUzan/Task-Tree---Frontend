@@ -19,10 +19,9 @@ function RegisterPage() {
   async function handleLogInButton() {
     console.log(registerData);
     await register(registerData);
-    
   }
   return (
-    <div className="mt-12">
+    <div className="mt-12 md:w-1/2 mx-auto sm:w-1/2 lg:w-1/3">
       <div className="mx-8 font-sofia-sans ">
         <h2 className="text-3xl">Register</h2>
         <div className="flex flex-col gap-6 ">

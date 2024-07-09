@@ -18,7 +18,7 @@ module.exports = {
     },
     extend: {
       colors: {
-        "blue-text": "#061E2B",
+        "blue-text": "#001E2B",
         "mongo-light-green": "#70EE67",
         "mongo-dark-green": "#2B684B",
         "mongo-light-blue": "#E3FCF7",

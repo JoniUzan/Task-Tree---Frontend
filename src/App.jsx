@@ -6,12 +6,14 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AuthLayout from "./layouts/AuthLayout";
 import { Home } from "lucide-react";
-import HomePage from "./HomePage";
+import HomePage from "./pages/HomePage";
 import TaskPage from "./pages/TaskPage";
 import MainLayout from "./layouts/MainLayout";
 import { useAuth } from "./context/UserProvider";
 import ProfilePage from "./pages/ProfilePage";
 import TaskDetails from "./pages/TaskDetails";
+import CreateTaskPage from "./pages/CreateTaskPage";
+import ContactUsPage from "./pages/ContactUsPage";
 
 function App() {
   // Protected
@@ -48,7 +50,15 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="profile" element={<ProfilePage />} />
+
+          <Route
+            path="ContactUs"
+            element={
+              <RequireAuth>
+                <ContactUsPage />
+              </RequireAuth>
+            }
+          />
           <Route
             path="task"
             element={
@@ -62,6 +72,14 @@ function App() {
               element={
                 <RequireAuth>
                   <TaskDetails />
+                </RequireAuth>
+              }
+            />
+            <Route
+              path="create"
+              element={
+                <RequireAuth>
+                  <CreateTaskPage />
                 </RequireAuth>
               }
             />

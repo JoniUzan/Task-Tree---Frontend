@@ -7,13 +7,7 @@ import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import api from "@/lib/utils";
 
-function Todos({
-  task,
-  handleTodoCheck,
-  handleDeleteTodo,
-  
-  setTask,
-}) {
+function Todos({ task, handleTodoCheck, handleDeleteTodo, setTask }) {
   const [newTodo, setNewTodo] = useState("");
 
   function handleNewTodoChange(e) {
@@ -33,7 +27,7 @@ function Todos({
       });
       const response = await api.patch(`/tasks/${task._id}`, updatedTask);
       console.log("todo added");
-      setNewTodo("")
+      setNewTodo("");
     } catch (error) {
       console.error("unsuccsesful to add to do");
     }
@@ -46,6 +40,7 @@ function Todos({
           <div className="flex justify-between items-center" key={todo._id}>
             <div className="flex gap-2 items-center">
               <Checkbox
+                className="rounded-full border-mongo-dark-green "
                 onClick={() => handleTodoCheck(todo._id)}
                 checked={todo.isComplete}
                 id={todo.title}

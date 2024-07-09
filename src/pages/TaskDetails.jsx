@@ -1,4 +1,5 @@
 import TaskCard from "@/components/TaskCard";
+import TaskDetailsSkeleton from "@/components/TaskDetailsSkeleton";
 import Todos from "@/components/Todos";
 import { CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -11,14 +12,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 import api from "@/lib/utils";
 import { Pencil, Trash2 } from "lucide-react";
-import React, { Children, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 function TaskDetails() {
   const [task, setTask] = useState(null);
-
+  const { toast } = useToast();
   const navigate = useNavigate();
 
   const [editTaskMode, setEditTaskMode] = useState(false);
@@ -34,7 +36,7 @@ function TaskDetails() {
       }
     }
     fetchTask();
-  }, []);
+  }, [id]);
 
   async function handleTodoCheck(todoId) {
     try {
@@ -50,10 +52,10 @@ function TaskDetails() {
         updatedTask.todoList = todoList;
         return updatedTask;
       });
-      const response = await api.patch(`/tasks/${task._id}`, updatedTask);
+      await api.patch(`/tasks/${task._id}`, updatedTask);
       console.log("todo updated");
     } catch (error) {
-      console.error("unsuccsesful to update to do");
+      console.error("unsuccessful to update to do");
     }
   }
 
@@ -64,7 +66,6 @@ function TaskDetails() {
   };
 
   function handleTaskChange(e) {
-    // console.log(e.target.name);
     setTask((prev) => {
       const name = e.target.name;
       const value = e.target.value;
@@ -77,13 +78,26 @@ function TaskDetails() {
 
   async function handleUpdateButton() {
     try {
-      const response = await api.patch(`/tasks/${task._id}`, task);
+      await api.patch(`/tasks/${task._id}`, task);
       console.log("Task updated");
+      toast({
+        title: "Update",
+        description: "Your task was updated",
+        style: {
+          backgroundColor: "lightgreen",
+        },
+      });
       navigate(-1);
     } catch (error) {
-      console.error("error updated task", error);
+      toast({
+        title: "Error",
+        description: "Unsuccessful to update your task",
+        variant: "destructive",
+      });
+      console.error("error updating task", error);
     }
   }
+
   async function handleDeleteTodo(todoId) {
     try {
       let updatedTask;
@@ -97,23 +111,24 @@ function TaskDetails() {
         updatedTask.todoList = todoList;
         return updatedTask;
       });
-      const response = await api.patch(`/tasks/${task._id}`, updatedTask);
+      await api.patch(`/tasks/${task._id}`, updatedTask);
       console.log("todo deleted");
     } catch (error) {
-      console.error("unsuccsesful to delete to do");
+      console.error("unsuccessful to delete to do");
     }
   }
 
-  
   return (
     <>
       <Dialog defaultOpen={true} onOpenChange={handleDialogClose}>
-        <DialogTitle></DialogTitle>
-        <DialogHeader></DialogHeader>
-        <DialogDescription></DialogDescription>
-        <DialogContent>
+        <DialogContent className="w-full  md:max-w-md lg:max-w-lg sm:h-auto max-h-screen  overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle></DialogTitle>
+            <DialogClose />
+          </DialogHeader>
+          <DialogDescription></DialogDescription>
           {!task ? (
-            <div>loading</div>
+            <TaskDetailsSkeleton />
           ) : (
             <TaskCard
               setTask={setTask}
@@ -125,7 +140,6 @@ function TaskDetails() {
               handleUpdateButton={handleUpdateButton}
             >
               <Todos
-                
                 handleDeleteTodo={handleDeleteTodo}
                 task={task}
                 editTaskMode={editTaskMode}
