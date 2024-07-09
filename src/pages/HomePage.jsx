@@ -5,6 +5,7 @@ import { CheckCircle, Clock, Users, TrendingUp } from "lucide-react";
 
 import lightGreenLeef from "../assets/MongoDB_Logomark_SpringGreen.png";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/context/UserProvider";
 
 const reasons = [
   {
@@ -26,6 +27,7 @@ const reasons = [
 ];
 
 function HomePage() {
+  const { loggedInUser } = useAuth();
   return (
     <div className="bg-white min-h-screen flex flex-col items-center justify-center ">
       <div className="text-center bg-blue-text p-4 sm:p-10 rounded-lg m-4">
@@ -40,21 +42,33 @@ function HomePage() {
           Start now
         </h2>
 
-        <div className=" space-y-4 ">
-          <div>
-            <Link to={"auth/login"}>
-              <Button className="bg-mongo-light-green text-blue-text block mx-auto w-28 ">
-                Login
-              </Button>
-            </Link>
-          </div>
-          <div>
-            <Link to={"auth/register"}>
-              <Button className="bg-text-blue-text text-mongo-light-green border block border-mongo-light-green mx-auto w-28">
-                Register
-              </Button>
-            </Link>
-          </div>
+        <div>
+          {loggedInUser ? (
+            <div>
+              <Link to={"auth/login"}>
+                <Button className="bg-mongo-light-green text-blue-text block mx-auto w-28 ">
+                  Get started
+                </Button>
+              </Link>
+            </div>
+          ) : (
+            <div className=" space-y-4 ">
+              <div>
+                <Link to={"auth/login"}>
+                  <Button className="bg-mongo-light-green text-blue-text block mx-auto w-28 ">
+                    Login
+                  </Button>
+                </Link>
+              </div>
+              <div>
+                <Link to={"auth/register"}>
+                  <Button className="bg-text-blue-text text-mongo-light-green border block border-mongo-light-green mx-auto w-28">
+                    Register
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <div className="bg-white text-[#061E2B] w-full py-8 px-4">
